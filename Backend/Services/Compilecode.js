@@ -6,13 +6,17 @@ const fs=require('fs');
     fs.writeFileSync('program.cpp',code);
     console.log('file written successfully\n');
     try{
-        execSync('g++ -std=c++20 program.cpp -o program',{stdio:'inherit'});
+        execSync('g++ -std=c++20 program.cpp -o program');
         console.log('code compiled successfully\n');
         const output=execSync('./program');
+
         return output.toString();
     }
     catch(err){
-       console.error('Compilation/Execution failed:', err.message); return `Error: ${err.message}`;
+        if(err.stderr){
+            return err.stderr.toString()
+        }
+        else return err.message
     }
     
 }

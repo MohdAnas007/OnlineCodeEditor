@@ -8,13 +8,15 @@ function App() {
 
   const [code, setCode] = useState("");
   const [codeOutput, setCodeOutput] = useState('');
+  const [input,setInput]=useState("");
+
 
   return (
     <div>
       <div className="header">
         <h1 className="title">Code Compiler</h1>
         <button className='run'
-          onClick={() => HandleRun(code, SendCodeToServer, setCodeOutput)}
+          onClick={() => HandleRun(code, SendCodeToServer, setCodeOutput,input)}
         >RUN</button>
       </div>
       <div className="main">
@@ -22,7 +24,7 @@ function App() {
           <EditorComponent code={code} setCode={setCode} />
         </div>
         <div className="right">
-          <textarea className='input' placeholder='input block'></textarea>
+          <textarea className='input' placeholder='input block' onChange={(e)=>setInput(e.target.value)}></textarea>
           <div className="output">{codeOutput}</div>
         </div>
       </div>

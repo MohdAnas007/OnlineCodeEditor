@@ -1,9 +1,9 @@
 
-export const HandleRun = async (code,SendCodeToServer,setCodeOutput) => {
+import { SendCodeToServer } from "./SendCodetoServer";
+export const HandleRun = async (code,SendCodeToServer,setCodeOutput,input) => {
     try {
-      const text = code;
-      const response = await SendCodeToServer(text);
-
+      
+      const response = await SendCodeToServer(code,input);
       setCodeOutput(response.data.message);
     }
     catch (err) {

@@ -8,7 +8,7 @@ app.post('/api/runcode',(req,res)=>{
     const code = req.body.code;
     const input=req.body.input;
     console.log(input,code);
-
+    // here code and input will come and go to strategy and they will select which language to use 
     // console.log(code);
     const x=CompileCode(code,input);
 

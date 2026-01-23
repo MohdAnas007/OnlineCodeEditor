@@ -10,7 +10,6 @@ const fs=require('fs');
     // console.log('file written successfully\n');
     try{
         // make a directory first
-        
         const desiredLocationForPrgramFolder='Program';
         const folderPath=path.resolve(desiredLocationForPrgramFolder);
         fs.mkdirSync(folderPath,{recursive:true});

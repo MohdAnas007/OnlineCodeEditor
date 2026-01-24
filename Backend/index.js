@@ -2,20 +2,30 @@ const express=require('express');
 const PORT=8080;
 const app=express();
 const {CompileCode}=require('./Services/Compilecode');
+const {RunDockerContainer}=require('./Services/Temp');
+const path=require('path');
+const fs=require('fs');
 
 app.use(express.json());
-app.post('/api/runcode',(req,res)=>{
+app.post('/api/runcode',async(req,res)=>{
     const code = req.body.code;
     const input=req.body.input;
-    console.log(input,code);
-    // here code and input will come and go to strategy and they will select which language to use 
-    // console.log(code);
-    const x=CompileCode(code,input);
+    console.log(code,input);
+  
+    try{
+        const codeFilePath=path.join(__dirname,'temp.cpp');
+        const inputFilePath=path.join(__dirname,'input.txt');
+        fs.writeFileSync(codeFilePath,code,'utf-8');
+        fs.writeFileSync(inputFilePath,input,'utf-8');
+        const x=await RunDockerContainer(codeFilePath,inputFilePath);
+        return res.status(201).json({message:x});
 
-    // console.log(x);
+    }
+    catch(err){
+        console.log(err);
+        return res.status(500).json({error:err.toString()});
 
-    return res.status(201).json({message:x});
-
+    }
 })
 
 app.listen(PORT,()=>console.log('server started'));

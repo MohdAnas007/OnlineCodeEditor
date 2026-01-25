@@ -8,17 +8,23 @@ const fs=require('fs');
 
 app.use(express.json());
 app.post('/api/runcode',async(req,res)=>{
-    const code = req.body.code;
-    const input=req.body.input;
-    console.log(code,input);
+    const {code,input,language}=req.body;
+    const config2={
+            python:{extension:'py'},
+            cpp:{extension:'cpp'},
+            java:{extension:'java'}
+        }
+        const fileend=config2[language].extension
+        console.log(fileend);
   
     try{
-        const codeFilePath=path.join(__dirname,'temp.cpp');
+        const codeFilePath=path.join(__dirname,'temp.'+fileend);
         const inputFilePath=path.join(__dirname,'input.txt');
         fs.writeFileSync(codeFilePath,code,'utf-8');
-        fs.writeFileSync(inputFilePath,input,'utf-8');
-        console.log("jhello kjbgk");
-        const x=await RunDockerContainer(codeFilePath,inputFilePath);
+        // fs.writeFileSync(inputFilePath,input,'utf-8');
+        console.log(language,code);
+
+        const x=await RunDockerContainer(codeFilePath,inputFilePath,language);
         console.log(x);
         return res.status(201).json({message:x});
 

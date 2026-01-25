@@ -3,7 +3,7 @@ export const HandleRun = async (code, SendCodeToServer, setCodeOutput, input, la
   try {
 
     const response = await SendCodeToServer(code, input, language);
-    // console.log(response);
+    console.log(response);
     setCodeOutput(response.data.message);
   }
   catch (err) {

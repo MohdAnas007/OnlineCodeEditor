@@ -2,7 +2,7 @@ const express=require('express');
 const PORT=8080;
 const app=express();
 const {CompileCode}=require('./Services/Compilecode');
-const {RunDockerContainer}=require('./Services/Temp');
+const {RunDockerContainer}=require('./Services/temp2');
 const path=require('path');
 const fs=require('fs');
 
@@ -17,7 +17,9 @@ app.post('/api/runcode',async(req,res)=>{
         const inputFilePath=path.join(__dirname,'input.txt');
         fs.writeFileSync(codeFilePath,code,'utf-8');
         fs.writeFileSync(inputFilePath,input,'utf-8');
+        console.log("jhello kjbgk");
         const x=await RunDockerContainer(codeFilePath,inputFilePath);
+        console.log(x);
         return res.status(201).json({message:x});
 
     }

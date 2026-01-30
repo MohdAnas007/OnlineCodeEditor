@@ -2,7 +2,6 @@ const {exec} =require('child_process');
 
 function EnsureContainer(workdir,language){
     return new Promise((resolve,reject)=>{
-        // check if container exists
 
          const config={
             cpp:{image:'gcc:latest',name:'cpp_runner'},
@@ -25,14 +24,12 @@ function EnsureContainer(workdir,language){
                 
             }
             if(stdout.trim()===name){
-                // check exists ,check if its running 
 
                 exec(`docker ps --filter "name=${name}" --format "{{.Names}}"`,(err2,stdout2)=>{
                     if(err2)return reject(err2);
                     if(stdout2.trim()===name){
-                        return resolve()// already running 
+                        return resolve()
                     }
-                    // start existing container 
                     exec(`docker start ${name}`,(err3)=>{
                         if(err3)return reject(err3);
                         resolve();
@@ -42,7 +39,6 @@ function EnsureContainer(workdir,language){
                 })
             }
             else{
-                // container does not exists create it 
            const cmd = `docker run -dit --name ${name} -m 256m --memory-swap=256m --cpus="1.0" -v ${workdir}:/app ${image} sh -c "sleep infinity"`;
 
              exec(cmd,(err4)=>{

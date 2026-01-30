@@ -1,12 +1,30 @@
 const express=require('express');
 const PORT=8080;
 const app=express();
-const {CompileCode}=require('./Services/Compilecode');
 const {RunDockerContainer}=require('./Services/temp2');
+const cors=require('cors');
 const path=require('path');
 const fs=require('fs');
 
 app.use(express.json());
+
+app.use(cors(
+
+    {
+        origin:[
+            "http://localhost:5173",
+            'http://localhost:5174/',
+
+        ]
+    }
+))
+
+
+
+
+
+
+
 app.post('/api/runcode',async(req,res)=>{
     const {code,input,language}=req.body;
     const config2={
@@ -21,7 +39,6 @@ app.post('/api/runcode',async(req,res)=>{
         const codeFilePath=path.join(__dirname,'temp.'+fileend);
         const inputFilePath=path.join(__dirname,'input.txt');
         fs.writeFileSync(codeFilePath,code,'utf-8');
-        // fs.writeFileSync(inputFilePath,input,'utf-8');
         console.log(language,code);
 
         const x=await RunDockerContainer(codeFilePath,inputFilePath,language);

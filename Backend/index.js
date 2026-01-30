@@ -25,23 +25,19 @@ app.post('/api/runcode',async(req,res)=>{
             java:{extension:'java'}
         }
         const fileend=config2[language].extension
-        console.log(fileend);
   
     try{
         const codeFilePath=path.join(__dirname,'temp.'+fileend);
         const inputFilePath=path.join(__dirname,'input.txt');
         fs.writeFileSync(codeFilePath,code,'utf-8');
-        console.log(language,code);
-
+        fs.writeFileSync(inputFilePath,input,'utf-8');
         const x=await RunDockerContainer(codeFilePath,inputFilePath,language);
-        console.log(x);
+
         return res.status(201).json({message:x});
 
     }
     catch(err){
-        console.log(err);
-        return res.status(500).json({error:err.toString()});
-
+     return res.status(400).json({message:err})
     }
 })
 

@@ -27,7 +27,13 @@ const RunDockerContainer = async (codeFilePath, InputFilePath,language) => {
           if (stderr.includes("Killed")) return reject("Memory Limit Exceeded");
           return reject(stderr || err.message);
         }
+        if(stderr){
+          return reject(stderr);
+
+        }
         resolve(stdout);
+        
+        
       });
     } catch (err) {
       reject(err);

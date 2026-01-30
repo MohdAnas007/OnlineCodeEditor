@@ -9,7 +9,6 @@ const fs=require('fs');
 app.use(express.json());
 
 app.use(cors(
-
     {
         origin:[
             "http://localhost:5173",
@@ -18,13 +17,6 @@ app.use(cors(
         ]
     }
 ))
-
-
-
-
-
-
-
 app.post('/api/runcode',async(req,res)=>{
     const {code,input,language}=req.body;
     const config2={

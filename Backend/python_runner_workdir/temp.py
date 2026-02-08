@@ -1,7 +1,1 @@
-def fun(x):
-    print(x)
-
-
-
-
-fun(4)
+print("hekjfbdf")

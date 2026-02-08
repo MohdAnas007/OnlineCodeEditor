@@ -6,7 +6,8 @@ function EnsureContainer(workdir,language){
          const config={
             cpp:{image:'gcc:latest',name:'cpp_runner'},
             java:{image:'openjdk:11-jdk-slim',name:'java_runner'},
-            python:{image:'python:3.9-slim',name:'python_runner'}
+            python:{image:'python:3.9-slim',name:'python_runner'},
+            javascript:{image:'node:20-alpine',name:"js_runner"}
          }
 
          const {image,name}=config[language];

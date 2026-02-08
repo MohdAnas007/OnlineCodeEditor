@@ -11,7 +11,7 @@ function App() {
   const [code, setCode] = useState("");
   const [codeOutput, setCodeOutput] = useState('');
   const [input, setInput] = useState("");
-  const [language, setLanguage] = useState('cpp');
+  const [language, setLanguage] = useState('python');
 
 
   return (

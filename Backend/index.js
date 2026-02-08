@@ -19,10 +19,13 @@ app.use(cors(
 ))
 app.post('/api/runcode',async(req,res)=>{
     const {code,input,language}=req.body;
+
     const config2={
             python:{extension:'py'},
             cpp:{extension:'cpp'},
-            java:{extension:'java'}
+            java:{extension:'java'},
+            javascript:{extension:'js'}
+
         }
         const fileend=config2[language].extension
   
@@ -31,6 +34,7 @@ app.post('/api/runcode',async(req,res)=>{
         const inputFilePath=path.join(__dirname,'input.txt');
         fs.writeFileSync(codeFilePath,code,'utf-8');
         fs.writeFileSync(inputFilePath,input,'utf-8');
+
         const x=await RunDockerContainer(codeFilePath,inputFilePath,language);
 
         return res.status(201).json({message:x});

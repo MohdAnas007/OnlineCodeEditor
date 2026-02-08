@@ -1,4 +1,4 @@
-// config.js
+
 const path = require('path');
 
 const LanguageConfig = {
@@ -17,14 +17,15 @@ const LanguageConfig = {
       `python3 /app/${path.basename(codeFile)} < /app/input.txt`
   },
   java: {
-    image: 'openjdk:11-jdk-slim',
+    image: 'eclipse-temurin:11-jre-slim', // safer replacement for openjdk:11-jdk-slim
     container: 'java_runner',
     workdir: path.resolve('./java_runner_workdir'),
     runCommand: (codeFile) => {
       const className = path.basename(codeFile, '.java');
       return `javac /app/${className}.java && java -cp /app ${className} < /app/input.txt`;
     }
-  }
+  },
+  javascript: { image: 'node:20-alpine', container: 'js_runner', workdir: path.resolve('./js_runner_workdir'), runCommand: (codeFile) => `node /app/${path.basename(codeFile)} < /app/input.txt` }
 };
 
 module.exports = { LanguageConfig };

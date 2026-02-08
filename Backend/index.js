@@ -1,5 +1,7 @@
 const express=require('express');
-const PORT=8080;
+require('dotenv').config();
+
+const PORT= process.env.PORT ;
 const app=express();
 const {RunDockerContainer}=require('./Services/RunDocker');
 const cors=require('cors');
@@ -45,4 +47,4 @@ app.post('/api/runcode',async(req,res)=>{
     }
 })
 
-app.listen(PORT,()=>console.log('server started'));
+app.listen(PORT || 8080,()=>console.log('server started'));

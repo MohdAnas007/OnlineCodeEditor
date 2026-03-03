@@ -6,6 +6,6 @@ export const HandleRun = async (code, SendCodeToServer, setCodeOutput, input, la
 
   }
   else{
-    setCodeOutput(result.message)
+   setCodeOutput(`${result.text}\n${result.message}`);
   }
 }

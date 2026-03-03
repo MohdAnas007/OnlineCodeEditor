@@ -1,13 +1,12 @@
 import axios from 'axios';
+const API_URL='http://localhost:8080';
+
 export const SendCodeToServer = async (code, input, language) => {
-
     try {
-       
-      console.log(code,language);
-        const datafromBackend = await axios.post('http://localhost:8080/api/runcode', { code, input, language });
-        console.log("datafromBackend");
-        return datafromBackend.data;
-
+      
+        const result = await axios.post(`${API_URL}/api/runcode`, { code, input, language });
+        console.log(result.data.message);
+        return result.data;
     }
     catch (err) {
       if(err.response){

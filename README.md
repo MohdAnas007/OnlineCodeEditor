@@ -1,84 +1,115 @@
-# 💻 Online Code Editor
+# 💻 Scalable Online Code Execution Engine
 
-Welcome to the **Online Code Editor**! This project is a web-based tool that allows you to write and run C++ code directly in your browser.
-
----
-
-## a. The Problem I am Solving 🎯
-
-For many beginners, starting with programming can be scary. You have to install a "compiler" (software to run code) and an "editor" (software to write code) on your computer. This process—setting up a "local environment"—can be complicated, time-consuming, and prone to errors.
-
-**My project solves this by putting everything on the web.**
-*   **No Installation Needed:** You don't need to install anything on your computer.
-*   **Instant Coding:** Just open the website, type your code, and click "Run".
-*   **Accessible Anywhere:** You can code from any computer that has a browser.
-
-It removes the barrier to entry so students and developers can focus on *learning logic* instead of *fixing installation errors*.
+A robust, full-stack web application designed for secure and scalable code execution. Users can write, compile, and run code in multiple programming languages directly from their browser, with execution isolated in secure Docker containers.
 
 ![Project Screenshot](./Screenshot.png)
+
 ---
 
-## b. How to Run My Program 🚀
+## 🎯 Project Overview
 
-The project is split into two parts: the **Backend** (the brain that runs the code) and the **Frontend** (the website you see). You need to start both.
+This project solves the "Local Setup Barrier" for aspiring developers. By providing a browser-based IDE coupled with a scalable backend execution engine, it eliminates the need for users to install compilers or configure local environments. 
+
+Beyond simple code execution, this system implements professional engineering practices:
+- **Asynchronous Execution:** Uses a job queue to handle heavy tasks without blocking the web server.
+- **Security through Isolation:** Executes user-provided (untrusted) code inside ephemeral Docker containers.
+- **Resource Management:** Strictly limits CPU, memory, and execution time to prevent system abuse.
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **React.js & Vite:** Modern, high-performance UI framework.
+- **Monaco Editor:** The powerhouse behind VS Code, providing features like syntax highlighting and intelligent indentation.
+- **Vanilla CSS:** Custom, sleek dark-themed UI for a premium developer experience.
+
+### Backend
+- **Node.js & Express:** Lightweight and fast server-side runtime.
+- **BullMQ & Redis:** High-performance message queue for reliable asynchronous task processing.
+- **Docker:** Containerization for secure, isolated, and reproducible code execution.
+- **Python Shell:** Bridging logic for specific language execution paths.
+- **Winston & Morgan:** Professional logging and monitoring.
+
+---
+
+## ✨ Key Features
+
+- **Multi-Language Support:** Execute C, C++, Java, Python, and JavaScript.
+- **Isloated Execution:** Every execution run happens in a clean, sandboxed Docker container with `--network none` for security.
+- **Queue Management:** Leverages Redis-backed BullMQ to manage execution load and provide status updates.
+- **Resource Constraints:** 
+  - CPU Limit: 0.5 vCPU
+  - Memory Limit: 128MB
+  - Execution Timeout: 5 seconds
+- **Responsive Web IDE:** A distraction-free, professional-grade code editor built with Monaco.
+
+---
+
+## 🚀 How to Run Locally
 
 ### Prerequisites
-Make sure you have **Node.js** installed on your computer.
+- **Node.js** (v16+)
+- **Docker** (Desktop or Engine)
+- **Redis Server** (Running locally or on a cloud instance)
 
-### Step 1: Start the Backend (Server)
-The backend accepts your code and actually compiles it.
+### Step 1: Backend Setup
+1. Navigate to the `Backend` directory:
+   ```bash
+   cd Backend
+   ```
+2. Create a `.env` file:
+   ```env
+   PORT=8080
+   REDIS_HOST=127.0.0.1
+   REDIS_PORT=6379
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+4. Start the server:
+   ```bash
+   npm start
+   ```
 
-1.  Open your terminal.
-2.  Go into the backend folder:
-    ```bash
-    cd Backend
-    ```
-3.  Install the necessary tools (dependencies):
-    ```bash
-    npm install
-    ```
-4.  Turn on the server:
-    ```bash
-    npm start
-    ```
-    *(You should see a message saying the server started, usually on port 8080)*
-
-### Step 2: Start the Frontend (Website)
-The frontend is the editor where you type.
-
-1.  Open a **new** terminal window (keep the other one running!).
-2.  Go into the frontend folder:
-    ```bash
-    cd FrontEnd
-    ```
-3.  Install the necessary tools:
-    ```bash
-    npm install
-    ```
-4.  Launch the website:
-    ```bash
-    npm run dev
-    ```
-5.  **Done!** Look at the terminal for a link (like `http://localhost:5173`), click it, and you can start coding.
+### Step 2: Frontend Setup
+1. Open a new terminal and navigate to the `FrontEnd` directory:
+   ```bash
+   cd FrontEnd
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Launch the development server:
+   ```bash
+   npm run dev
+   ```
+4. Access the application at `http://localhost:5173`.
 
 ---
 
-## c. A Brief Explanation of My Design Decisions 🛠️
+## 🏗️ System Architecture
 
-I built this project using a "Client-Server" architecture. Think of it like a restaurant: the **Frontend** is the menu and table where you sit, and the **Backend** is the kitchen where the food is cooked.
+1. **Client (Frontend):** Sends code and input to the API server.
+2. **API Server (Backend):** Validates the request and adds a job to the **BullMQ** queue.
+3. **Queue (Redis):** Stores jobs until a worker is available.
+4. **Worker:** Picks up the job, creates a temporary execution environment, and spawns a **Docker** container.
+5. **Docker Container:** Compiles/Executes the code in a sandbox and returns the output.
+6. **Result:** Worker captures the output and sends it back to the client via the job completion event.
 
-### 1. Separation of Concerns (Frontend vs. Backend)
-I kept the website (Frontend) separate from the logic (Backend).
-*   **Why?** It keeps things organized. If I want to change how the buttons look, I only touch the Frontend. If I want to upgrade the compiler, I only touch the Backend. They talk to each other but don't interfere with each other.
+---
 
-### 2. The Frontend: React & Vite
-*   **React:** I used React because it allows me to build a website that feels like an app. It updates instantly without reloading the page.
-*   **Monaco Editor:** Instead of a simple text box, I used the *Monaco Editor*. This is the same powerful editor used in VS Code. It gives you helpful features like colorful text (syntax highlighting) and line numbers, making it much easier to read and write code.
-*   **Vite:** This is a tool to run the website. I chose it because it is extremely fast, making development smooth.
+## 🛠️ Design Decisions & Lessons Learned
 
-### 3. The Backend: Node.js & Express
-*   **Node.js:** This allows me to use JavaScript (the same language as the frontend) for the server. It simplifies things because I don't need to switch languages.
-*   **Express:** This handles the "requests". When you click "Run" on the frontend, Express catches that request, sends your code to the compiler, and sends the result back to you.
+- **Why BullMQ?** To ensure the server remains responsive even under heavy load. By offloading execution to a queue, we can scale workers independently.
+- **Why Docker?** Security is paramount when running untrusted code. Docker provides the best balance of isolation and performance for this use case.
+- **Why Monaco Editor?** Providing a "VS Code-like" experience significantly improves user retention and makes the tool feel professional.
 
-### 4. Code Compilation
-When you run code, the backend actually saves your code to a temporary file, runs a real C++ command line tool (like `g++`), captures the output, and cleans up. This ensures the code runs exactly as it would on a real computer.
+---
+
+## 👨‍💻 Author
+**Mohd Anas**  
+*Aspiring Software Engineer*
+

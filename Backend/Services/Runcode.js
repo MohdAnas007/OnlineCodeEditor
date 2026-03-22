@@ -23,12 +23,14 @@ const Runcode=(code,input,language)=>{
     fs.writeFileSync(path.join(folderPath,'input.txt'),input);
 
    
-   const dockerCmd = `docker run --rm \
+   const dockerCmd = `sudo docker run --rm \
             -v "${folderPath}":/app \
             -w /app \
             --network none \
             --memory="128m" \
             --cpus="0.5" \
+            --ulimit fsize=10485760 \
+            --pids-limit 16 \
             ${config.image} \
             sh -c "timeout 5s ${config.command} < input.txt"`;
     try{    

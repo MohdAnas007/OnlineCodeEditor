@@ -245,6 +245,49 @@ body {
   flex-shrink: 0;
 }
 
+/* Download Button - Matching UI */
+.download-btn {
+  background: linear-gradient(135deg, #3c3c3c 0%, #333333 100%);
+  color: #cccccc;
+  border: 1px solid rgba(100, 100, 120, 0.2);
+  padding: 7px 16px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  margin-left: 8px;
+}
+
+.download-btn:hover {
+  background: linear-gradient(135deg, #484848 0%, #3c3c3c 100%);
+  color: #ffffff;
+  border-color: rgba(129, 140, 248, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
+}
+
+.download-btn:active {
+  background: #2d2d2d;
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.download-icon {
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.download-btn:hover .download-icon {
+  opacity: 1;
+}
+
 /* Main Layout - Split Pane */
 .main {
   display: flex;

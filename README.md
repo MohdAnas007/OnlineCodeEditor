@@ -3,6 +3,7 @@
 A robust, full-stack web application designed for secure and scalable code execution. Users can write, compile, and run code in multiple programming languages directly from their browser, with execution isolated in secure Docker containers.
 
 ![Project Screenshot](./Screenshot.png)
+![Download Button Screenshot](./DownloadButton.png)
 
 ---
 
@@ -37,6 +38,7 @@ Beyond simple code execution, this system implements professional engineering pr
 
 - **Multi-Language Support:** Execute C, C++, Java, Python, and JavaScript.
 - **Isloated Execution:** Every execution run happens in a clean, sandboxed Docker container with `--network none` for security.
+- **Download Code:** Users can download their code with the correct file extension based on the selected language (.py, .cpp, .java, etc.).
 - **Queue Management:** Leverages Redis-backed BullMQ to manage execution load and provide status updates.
 - **Resource Constraints:** 
   - CPU Limit: 0.5 vCPU

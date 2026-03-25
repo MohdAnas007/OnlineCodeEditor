@@ -2,8 +2,7 @@
 
 A robust, full-stack web application designed for secure and scalable code execution. Users can write, compile, and run code in multiple programming languages directly from their browser, with execution isolated in secure Docker containers.
 
-![Project Screenshot](./Screenshot.png)
-![Download Button Screenshot](./DownloadButton.png)
+![Code Compiler UI](./DownloadButton.png)
 
 ---
 
@@ -36,15 +35,14 @@ Beyond simple code execution, this system implements professional engineering pr
 
 ## ✨ Key Features
 
-- **Multi-Language Support:** Execute C, C++, Java, Python, and JavaScript.
+- **Multi-Language Support:** Write and execute code in Python, Java, C++, C, and JavaScript.
 - **Isloated Execution:** Every execution run happens in a clean, sandboxed Docker container with `--network none` for security.
-- **Download Code:** Users can download their code with the correct file extension based on the selected language (.py, .cpp, .java, etc.).
-- **Queue Management:** Leverages Redis-backed BullMQ to manage execution load and provide status updates.
-- **Resource Constraints:** 
-  - CPU Limit: 0.5 vCPU
-  - Memory Limit: 128MB
-  - Execution Timeout: 5 seconds
-- **Responsive Web IDE:** A distraction-free, professional-grade code editor built with Monaco.
+- **Custom Stdin:** Provide input to your programs dynamically through a dedicated stdin panel.
+- **Download Code:** Save your code locally with the correct file extension (.py, .cpp, .java, etc.) at the click of a button.
+- **Premium IDE Experience:** A distraction-free, VS Code-like editor built with Monaco, featuring syntax highlighting and auto-indentation.
+- **Queue Management:** Leverages Redis-backed BullMQ to manage high execution loads and ensure server stability.
+- **Resource Constraints:** Strict limits on CPU (0.5 vCPU), Memory (128MB), and Timeout (5s) to guarantee fair usage.
+- **Smooth Visuals:** Modern, dark-themed UI with loading spinners and interactive components.
 
 ---
 

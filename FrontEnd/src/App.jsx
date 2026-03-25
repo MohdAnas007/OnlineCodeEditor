@@ -52,8 +52,27 @@ function App() {
           <EditorComponent code={code} setCode={setCode} language={language} />
         </div>
         <div className="right">
-          <textarea className='input' placeholder='input block' onChange={(e) => setInput(e.target.value)}></textarea>
-          <div className="output">{codeOutput}</div>
+          <div className="input-container">
+            <div className="input-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="13" height="13">
+                <polyline points="4 17 10 11 4 5" />
+                <line x1="12" y1="19" x2="20" y2="19" />
+              </svg>
+              Stdin
+            </div>
+            <textarea className='input' placeholder='Enter your input here...' onChange={(e) => setInput(e.target.value)}></textarea>
+          </div>
+          <div className="output-container">
+            <div className="output-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="13" height="13">
+                <rect x="2" y="3" width="20" height="18" rx="2" />
+                <polyline points="8 10 12 14 8 18" />
+                <line x1="14" y1="18" x2="18" y2="18" />
+              </svg>
+              Output
+            </div>
+            <div className="output">{codeOutput}</div>
+          </div>
         </div>
       </div>
     </div>

@@ -3,29 +3,22 @@ import React from 'react';
 
 const LanguageSelector = ({ language, setLanguage }) => {
     return (
-        <select
-            value={language}
-            onChange={(e) => setLanguage(e.target.value)}
-            className="language-selector"
-            style={{
-                padding: '6px 12px',
-                borderRadius: '4px',
-                border: '1px solid #454545',
-                marginLeft: '15px',
-                backgroundColor: '#3c3c3c',
-                color: '#cccccc',
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '13px',
-                outline: 'none',
-                cursor: 'pointer'
-            }}
-        >
-            <option value="cpp">C++</option>
-            <option value="c">C</option>
-            <option value="java">Java</option>
-            <option value="python">Python</option>
-            <option value="javascript">JavaScript</option>
-        </select>
+        <div className="lang-select-wrapper">
+            <svg className="lang-select-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="14" height="14">
+                <polyline points="4 7 12 15 20 7" />
+            </svg>
+            <select
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
+                className="language-selector"
+            >
+                <option value="cpp">C++</option>
+                <option value="c">C</option>
+                <option value="java">Java</option>
+                <option value="python">Python</option>
+                <option value="javascript">JavaScript</option>
+            </select>
+        </div>
     );
 };
 

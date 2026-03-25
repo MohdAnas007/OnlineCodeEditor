@@ -9,6 +9,7 @@ import LanguageSelector from './Components/LanguageSelector';
 function App() {
 
   const [code, setCode] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [codeOutput, setCodeOutput] = useState('');
   const [input, setInput] = useState("");
   const [language, setLanguage] = useState('python');
@@ -17,13 +18,34 @@ function App() {
   return (
     <div>
       <div className="header">
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div className="header-left">
           <h1 className="title">Code Compiler</h1>
           <LanguageSelector language={language} setLanguage={setLanguage} />
         </div>
-        <button className='run'
-          onClick={() => HandleRun(code, SendCodeToServer, setCodeOutput, input, language)}
-        >RUN</button>
+        <div className="header-center">
+          <button
+            className={`run${isLoading ? ' run--loading' : ''}`}
+            onClick={() => {
+              if (!isLoading) HandleRun(code, SendCodeToServer, setCodeOutput, input, language, setIsLoading);
+            }}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <>
+                <span className="run-spinner" />
+                Running...
+              </>
+            ) : (
+              <>
+                <svg className="run-icon" viewBox="0 0 24 24" fill="currentColor" width="13" height="13">
+                  <polygon points="5,3 19,12 5,21" />
+                </svg>
+                Run
+              </>
+            )}
+          </button>
+        </div>
+        <div className="header-right" />
       </div>
       <div className="main">
         <div className="left">

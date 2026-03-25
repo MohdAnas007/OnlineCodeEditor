@@ -60,12 +60,27 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* Spread title and button */
   padding: 0 16px;
   border-bottom: 1px solid #111;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   z-index: 10;
   position: relative;
+}
+
+.header-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.header-center {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.header-right {
+  flex: 1;
 }
 
 /* Header Title */
@@ -84,32 +99,150 @@ body {
   text-shadow: 0 2px 10px rgba(56, 189, 248, 0.2);
 }
 
-/* Run Button */
+/* Language Selector - Premium Style */
+.lang-select-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 16px;
+}
+
+.language-selector {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: linear-gradient(135deg, rgba(45, 45, 50, 0.95) 0%, rgba(35, 35, 40, 0.95) 100%);
+  color: #e0e0e0;
+  border: 1px solid rgba(100, 100, 120, 0.3);
+  padding: 7px 34px 7px 12px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  min-width: 120px;
+  letter-spacing: 0.2px;
+  position: relative;
+  z-index: 1;
+  background-clip: padding-box;
+}
+
+.language-selector:hover {
+  border-color: rgba(129, 140, 248, 0.45);
+  background: linear-gradient(135deg, rgba(50, 50, 58, 0.95) 0%, rgba(40, 40, 48, 0.95) 100%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(129, 140, 248, 0.1);
+}
+
+.language-selector:focus {
+  border-color: rgba(129, 140, 248, 0.6);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35), 0 0 12px rgba(129, 140, 248, 0.12);
+}
+
+.language-selector option {
+  background-color: #2a2a30;
+  color: #e0e0e0;
+  padding: 8px 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+}
+
+.language-selector option:checked {
+  background: linear-gradient(135deg, #818cf8, #6366f1);
+  color: #ffffff;
+}
+
+.lang-select-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(129, 140, 248, 0.7);
+  pointer-events: none;
+  z-index: 2;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.lang-select-wrapper:hover .lang-select-icon {
+  color: rgba(129, 140, 248, 1);
+}
+
+/* Run Button - LeetCode Style */
 .run {
-  background-color: var(--accent-run);
-  color: white;
+  background: linear-gradient(135deg, #2cbb5d 0%, #1fa34e 100%);
+  color: #ffffff;
   border: none;
-  padding: 6px 14px;
+  padding: 7px 20px;
   font-family: 'Inter', sans-serif;
   font-weight: 600;
-  font-size: 12px;
-  border-radius: var(--radius-sm);
+  font-size: 13px;
+  border-radius: 5px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 6px;
-  transition: all 0.2s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  gap: 7px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.3px;
+  min-width: 90px;
+  justify-content: center;
+  user-select: none;
+  box-shadow: 0 1px 3px rgba(44, 187, 93, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  position: relative;
+  overflow: hidden;
 }
 
-.run:hover {
-  background-color: var(--accent-run-hover);
-  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.4);
+.run::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+  border-radius: inherit;
+  pointer-events: none;
 }
 
-.run:active {
-  transform: translateY(1px);
+.run-icon {
+  flex-shrink: 0;
+  display: block;
+}
+
+.run:hover:not(:disabled) {
+  background: linear-gradient(135deg, #33d166 0%, #2cbb5d 100%);
+  box-shadow: 0 2px 10px rgba(44, 187, 93, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.run:active:not(:disabled) {
+  background: linear-gradient(135deg, #1fa34e 0%, #199444 100%);
+  box-shadow: 0 1px 3px rgba(44, 187, 93, 0.2);
+  transform: translateY(0);
+}
+
+.run--loading,
+.run:disabled {
+  cursor: not-allowed;
+  background: linear-gradient(135deg, #2cbb5d88 0%, #1fa34e88 100%);
+  box-shadow: none;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Spinner */
+@keyframes lc-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.run-spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: lc-spin 0.7s linear infinite;
+  flex-shrink: 0;
 }
 
 /* Main Layout - Split Pane */

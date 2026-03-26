@@ -42,7 +42,7 @@ const Runcode=(code,input,language)=>{
         return {
             success:true,
             output:output,
-            details:"Code execution successfull ",
+            details:"Code execution successfull v2 ",
         }
     }
     catch(error){

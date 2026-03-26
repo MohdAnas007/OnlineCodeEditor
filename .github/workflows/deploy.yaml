@@ -1,33 +1,30 @@
-name :editor deploy
-
+name: editor deploy
 
 on:
   push:
-    branches:[main]
-
-
+    branches: [main]
 
 jobs:
   deploy:
-    runs-on:ubuntu-latest
-
+    runs-on: ubuntu-latest
 
     steps:
-    - name:Checkout Code
-      uses:actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-    -name:SSH and Deploy
-     uses:appleboy/ssh-action@v1.0.3
-     with:
-       host:${{secrets.EC2_HOST}}
-       username:${{secrets.EC2_USER}}
-       key:${{secrets.EC2_SSH_KEY}}
-       script: |
-         cd /home/ubuntu/OnlineCodeEditor
-         git pull origin main
-         npm install
-         npm run build
-         pm2 restart code
-
-         pm2 save
-   
+      - name: SSH and Deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd /home/ubuntu/OnlineCodeEditor
+            git pull origin main
+            npm install
+            # Only keep 'npm run build' if you have a build step (like TypeScript or Next.js)
+            npm run build || true 
+            
+            # Restart the process
+            pm2 restart code || pm2 start npm --name "code" -- start
+            pm2 save

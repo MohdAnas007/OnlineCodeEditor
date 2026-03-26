@@ -12,7 +12,7 @@ const config={
 const Download=(code,language)=>{
     const extension=config[language] || '.txt';
     
-    const filename=`main.${extension}`;
+    const filename=`main${extension}`;
 
     const blob=new Blob([code],{ type: 'text/plain;charset=utf-8' });
     saveAs(blob,filename);

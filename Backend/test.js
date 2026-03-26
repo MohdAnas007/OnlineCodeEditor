@@ -45,6 +45,8 @@ async function sendRequest(user) {
   }
 }
 
+//fmnkfgf
+
 async function main() {
   const users = Array.from({ length: 40 }, (_, i) => `User${i+1}`);
   const startAll = Date.now();

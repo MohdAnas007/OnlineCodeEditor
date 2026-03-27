@@ -20,7 +20,8 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd /home/ubuntu/OnlineCodeEditor
-            git pull origin main
+            git fetch origin main
+            git reset --hard origin/main
             npm install
             # Only keep 'npm run build' if you have a build step (like TypeScript or Next.js)
             npm run build || true 

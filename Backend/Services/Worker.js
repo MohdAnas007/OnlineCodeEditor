@@ -10,7 +10,7 @@ const worker=new Worker('code-runner',async (job)=>{
     return Runcode(code,input,language);
 
     
-},{connection,concurrency:8});
+},{connection});
 
 
 worker.on('completed',(job)=>{

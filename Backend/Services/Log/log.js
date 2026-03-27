@@ -11,9 +11,7 @@ const logger = winston.createLogger({
   
     new winston.transports.File({ 
       filename: 'logs/app.log',
-      datePattern: 'YYYY-MM-DD-HH',
-      maxsize: '20m',
-      maxFiles:'2d',
+      maxsize: 100000000,
       tailable: true     
     }),
   ],

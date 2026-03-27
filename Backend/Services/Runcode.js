@@ -40,7 +40,7 @@ const Runcode=(code,input,language)=>{
         return {
             success:true,
             output:output,
-            details:"Code executed successful v6",
+            details:"Code executed successful v7",
         }
     }
     catch(error){
